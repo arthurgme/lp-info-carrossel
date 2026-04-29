@@ -13,8 +13,15 @@
 
 ## Arquivo
 ```
-content-akademy-lp/
-└── index.html   ← página completa (HTML + CSS + JS embutidos, sem framework)
+lp-akademy/
+├── index.html        ← página completa (HTML + CSS + JS embutidos, sem framework)
+└── provas/           ← screenshots de depoimentos do Instagram (6 PNGs)
+    ├── IMG_6248.PNG  → @ferguxta
+    ├── IMG_6250.PNG  → @raphaellareiis
+    ├── IMG_6254.PNG  → @jenniferklayn
+    ├── IMG_6260.PNG  → @patiliberato
+    ├── IMG_6262.PNG  → @_jusouza
+    └── IMG_6263.PNG  → @jvarchanjo
 ```
 
 ---
@@ -56,18 +63,18 @@ content-akademy-lp/
 
 | # | Classe | Conteúdo | Fundo |
 |---|---|---|---|
-| 1 | `.hero` | Logo, headline, subheadline, CTA | `--bg-primary` + grid âmbar + glow |
+| 1 | `.hero` | Headline, subheadline, CTA (sem logo) | `--bg-primary` + grid âmbar + glow |
 | 2 | `.section-pain` | "Isso soa familiar?" — 3 cards de dor | `--bg-secondary` |
 | 3 | `.section-turn` | Frase de virada grande | `--bg-primary` + linha vertical âmbar |
 | 4 | `.section-solution` | Badge + título do produto + foto placeholder | `--bg-secondary` |
 | 5 | `.section-forwhom` | 4 itens com check âmbar | `--bg-primary` |
 | 6 | `.section-modules` | 4 cards de módulo (04 = bônus roxo) | `--bg-secondary` |
-| 7 | `.section-proof` | 3 cards de depoimento (placeholder) | `--bg-primary` |
+| 7 | `.section-proof` | 6 screenshots reais de depoimentos do Instagram (pasta `provas/`) | `--bg-primary` |
 | 8 | `.section-offer` | Lista incluso + preço R$297 + CTA | `--bg-offer` |
 | 9 | `.section-faq` | Accordion com 5 perguntas | `--bg-secondary` |
 | 10 | `.section-warranty` | Escudo + garantia 7 dias | `--bg-primary` |
 | 11 | `.section-final-cta` | Headline + botão final | `--bg-secondary` + grid |
-| — | `.footer` | Logo + copyright + links | `--bg-primary` |
+| — | `.footer` | Copyright + links (sem logo) | `--bg-primary` |
 
 **Âncora da oferta:** `id="oferta"` na seção 8 — todos os botões CTA apontam para `#oferta`
 
@@ -88,9 +95,7 @@ content-akademy-lp/
 
 | Placeholder | Localização | Observação |
 |---|---|---|
-| `[LOGO CONTENT AKADEMY]` | Header do hero + footer | 168×46px |
 | `[FOTO DO DIRETOR CRIATIVO]` | Seção 4 — Solução | Proporção 3:4, max-width 360px |
-| `[Depoimento em breve]` × 3 | Seção 7 — Prova Social | Estrutura pronta para substituição |
 | `href="#"` no botão de compra | Seção 8 — Oferta | Trocar pelo link de checkout real |
 
 ---

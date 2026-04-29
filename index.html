@@ -563,32 +563,14 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 40px 32px;
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
+      padding: 0;
+      overflow: hidden;
     }
 
-    .proof-avatar {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      border: 2px dashed rgba(245,158,11,0.35);
-      background: rgba(245,158,11,0.04);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .proof-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
+    .proof-card img {
+      width: 100%;
+      display: block;
+      border-radius: var(--radius-lg);
     }
 
     /* =============================================
@@ -956,7 +938,6 @@
   <section class="hero">
     <nav class="hero-nav">
       <div class="container">
-        <div class="placeholder hero-logo">[LOGO CONTENT AKADEMY]</div>
       </div>
     </nav>
 
@@ -971,12 +952,12 @@
 
           <h1 class="hero-headline fade-in delay-1">
             <span class="line-plain">Chega de criar conteúdo</span>
-            <span class="line-plain">genérico com IA.</span>
-            <span class="line-accent">Aprenda o método.</span>
+            <span class="line-plain">genérico com IA</span>
+            <span class="line-accent">Transforme sua IA em um diretor criativo</span>
           </h1>
 
           <p class="hero-subheadline fade-in delay-2">
-            Um método validado, usado em clientes reais, que te dá repertório técnico para criar conteúdo com identidade, consistência e intenção toda vez.
+            Para você sair do piloto automático, entregar conteúdo que o cliente enxerga valor e finalmente cobrar o que merece.
           </p>
 
           <div class="hero-cta-group fade-in delay-3">
@@ -1188,22 +1169,22 @@
 
       <div class="proof-grid">
         <div class="proof-card fade-in delay-1">
-          <div class="proof-avatar">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(245,158,11,0.5)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <span class="proof-label">[Depoimento em breve]</span>
+          <img src="provas/IMG_6248.PNG" alt="Depoimento @ferguxta" />
         </div>
         <div class="proof-card fade-in delay-2">
-          <div class="proof-avatar">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(245,158,11,0.5)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <span class="proof-label">[Depoimento em breve]</span>
+          <img src="provas/IMG_6250.PNG" alt="Depoimento @raphaellareiis" />
         </div>
         <div class="proof-card fade-in delay-3">
-          <div class="proof-avatar">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:rgba(245,158,11,0.5)"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <span class="proof-label">[Depoimento em breve]</span>
+          <img src="provas/IMG_6254.PNG" alt="Depoimento @jenniferklayn" />
+        </div>
+        <div class="proof-card fade-in delay-1">
+          <img src="provas/IMG_6260.PNG" alt="Depoimento @patiliberato" />
+        </div>
+        <div class="proof-card fade-in delay-2">
+          <img src="provas/IMG_6262.PNG" alt="Depoimento @_jusouza" />
+        </div>
+        <div class="proof-card fade-in delay-3">
+          <img src="provas/IMG_6263.PNG" alt="Depoimento @jvarchanjo" />
         </div>
       </div>
     </div>
@@ -1384,7 +1365,6 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-inner">
-        <div class="placeholder footer-logo">[LOGO CONTENT AKADEMY]</div>
         <p class="footer-copy">Content Akademy &copy; 2026</p>
         <div class="footer-links">
           <a href="#">Política de Privacidade</a>
