@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>O Método — Content Akademy</title>
+  <title>Carrossel com Intenção — Content Akademy</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -118,18 +118,6 @@
     }
     .btn:active { transform: translateY(0); }
 
-    .btn-outline {
-      background: transparent;
-      color: var(--accent);
-      border: 1.5px solid var(--border-strong);
-    }
-    .btn-outline:hover {
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      box-shadow: 0 8px 32px var(--accent-glow);
-    }
-    .btn-outline::after { display: none; }
-
     /* === BADGE === */
     .badge {
       display: inline-flex;
@@ -153,6 +141,21 @@
     }
 
     /* =============================================
+       TOPBAR — URGÊNCIA DE LANÇAMENTO
+    ============================================= */
+    .topbar {
+      background: var(--accent);
+      color: #0c0a07;
+      padding: 11px 20px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .topbar strong { font-weight: 900; }
+
+    /* =============================================
        SEÇÃO 1 — HERO
     ============================================= */
     .hero {
@@ -164,7 +167,6 @@
       overflow: hidden;
     }
 
-    /* grade sutil de fundo */
     .hero::before {
       content: '';
       position: absolute;
@@ -177,7 +179,6 @@
       pointer-events: none;
     }
 
-    /* glow quente no topo */
     .hero::after {
       content: '';
       position: absolute;
@@ -190,25 +191,13 @@
       pointer-events: none;
     }
 
-    .hero-nav {
-      padding: 28px 0;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-logo.placeholder {
-      width: 168px;
-      height: 46px;
-      font-size: 11px;
-    }
-
     .hero-body {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 60px 0 100px;
+      padding: 80px 0 100px;
       position: relative;
       z-index: 2;
     }
@@ -344,7 +333,6 @@
       pointer-events: none;
     }
 
-    /* linha decorativa âmbar */
     .section-turn::after {
       content: '';
       position: absolute;
@@ -415,6 +403,8 @@
       line-height: 1.75;
       max-width: 520px;
     }
+
+    .solution-desc + .solution-desc { margin-top: 20px; }
 
     /* =============================================
        SEÇÃO 5 — PARA QUEM É
@@ -519,58 +509,28 @@
       letter-spacing: -0.01em;
     }
 
-    .bonus-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(168, 85, 247, 0.15));
-      border: 1px solid rgba(168, 85, 247, 0.40);
-      color: #c084fc;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.10em;
-      text-transform: uppercase;
-      padding: 5px 13px;
-      border-radius: 100px;
-    }
-
     .module-desc {
       font-size: 16px;
       color: var(--text-secondary);
       line-height: 1.65;
     }
 
-    /* card bônus com destaque especial */
-    .module-card--bonus {
-      border-color: rgba(168, 85, 247, 0.25);
-      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(124, 58, 237, 0.06) 100%);
-    }
-
-    .module-card--bonus:hover { border-color: rgba(168, 85, 247, 0.45); }
-
     /* =============================================
        SEÇÃO 7 — PROVA SOCIAL
     ============================================= */
     .section-proof { background: var(--bg-primary); }
 
-    .proof-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 18px;
-    }
-
-    .proof-card {
+    .proof-placeholder {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 64px 40px;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-lg);
-      padding: 0;
-      overflow: hidden;
-    }
-
-    .proof-card img {
-      width: 100%;
-      display: block;
-      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 500;
     }
 
     /* =============================================
@@ -614,7 +574,7 @@
     .offer-list {
       list-style: none;
       text-align: left;
-      margin-bottom: 40px;
+      margin-bottom: 0;
     }
 
     .offer-list li {
@@ -643,21 +603,107 @@
 
     .offer-list .check-amber svg { color: var(--accent); }
 
-    .offer-list .item-value {
-      margin-left: auto;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
     .offer-separator {
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
       margin: 36px 0;
     }
 
-    .offer-price-block { text-align: center; }
+    /* Bônus */
+    .bonus-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .bonus-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bonus-item {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(245,158,11,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: left;
+    }
+
+    .bonus-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .bonus-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .bonus-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .bonus-value {
+      margin-top: 8px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bonus-value s { color: var(--text-muted); }
+
+    .bonus-included {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Bloco de preço */
+    .offer-price-block { text-align: center; margin-top: 40px; }
+
+    .price-total-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .price-was {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .price-de-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .price-de-label { font-size: 14px; color: var(--text-muted); }
+
+    .price-de {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      text-decoration: line-through;
+      font-weight: 600;
+    }
 
     .offer-price {
       font-size: clamp(72px, 12vw, 110px);
@@ -665,6 +711,7 @@
       letter-spacing: -0.05em;
       line-height: 0.9;
       color: var(--accent);
+      margin: 12px 0;
     }
 
     .offer-price sup {
@@ -879,12 +926,6 @@
       text-align: center;
     }
 
-    .footer-logo.placeholder {
-      width: 148px;
-      height: 44px;
-      font-size: 11px;
-    }
-
     .footer-copy {
       font-size: 13px;
       color: var(--text-muted);
@@ -915,8 +956,6 @@
       }
       .solution-photo-col { order: 2; }
       .solution-text-col  { order: 1; }
-
-      .proof-grid { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 640px) {
@@ -926,46 +965,48 @@
       }
       .module-number { font-size: 40px; }
       .offer-box { padding: 36px 24px; }
+      .bonus-item { flex-direction: column; gap: 10px; }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- TOPBAR -->
+  <div class="topbar">
+    🔥 LANÇAMENTO &nbsp;·&nbsp; DE <s style="opacity:.6">R$297</s> POR <strong>R$97</strong> POR TEMPO LIMITADO
+  </div>
+
+
   <!-- =============================================
        SEÇÃO 1 — HERO
   ============================================= -->
   <section class="hero">
-    <nav class="hero-nav">
-      <div class="container">
-      </div>
-    </nav>
-
     <div class="hero-body">
       <div class="container">
         <div class="hero-inner">
 
           <div class="hero-eyebrow fade-in">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            Método validado em clientes reais
+            Novo Método
           </div>
 
           <h1 class="hero-headline fade-in delay-1">
-            <span class="line-plain">Chega de criar conteúdo</span>
-            <span class="line-plain">genérico com IA</span>
-            <span class="line-accent">Transforme sua IA em um diretor criativo</span>
+            <span class="line-plain">Crie carrosséis com intenção</span>
+            <span class="line-plain">e eleve a autoridade da sua marca</span>
+            <span class="line-accent">a cada compartilhamento.</span>
           </h1>
 
           <p class="hero-subheadline fade-in delay-2">
-            Para você sair do piloto automático, entregar conteúdo que o cliente enxerga valor e finalmente cobrar o que merece.
+            Quando alguém compartilha o seu carrossel, sua marca chega em pessoas que nunca te viram sem você pagar nem um centavo por isso.
           </p>
 
           <div class="hero-cta-group fade-in delay-3">
             <a href="#oferta" class="btn">
-              Quero aprender o método
+              Quero criar com intenção
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
-            <span class="hero-trust">Garantia de 7 dias &nbsp;·&nbsp; Acesso imediato</span>
+            <span class="hero-trust">Garantia de 7 dias &nbsp;·&nbsp; Acesso imediato &nbsp;·&nbsp; Qualquer nicho</span>
           </div>
 
         </div>
@@ -987,15 +1028,15 @@
       <div class="pain-grid">
         <div class="pain-card fade-in delay-1">
           <p class="pain-number">01</p>
-          <p>Entrega o conteúdo, mas sabe que é sempre mais do mesmo.</p>
+          <p>Você investe horas criando. Posta e o carrossel some com 20 likes.</p>
         </div>
         <div class="pain-card fade-in delay-2">
           <p class="pain-number">02</p>
-          <p>Você passa horas na frente da tela sem saber o caminho que precisa seguir.</p>
+          <p>Você já copiou o formato de quem cresce. Não funcionou. E você ainda não entende por quê.</p>
         </div>
         <div class="pain-card fade-in delay-3">
           <p class="pain-number">03</p>
-          <p>Tenta usar IA mas o resultado não presta e você gastou mais tempo do que se tivesse feito sozinho.</p>
+          <p>Nenhum save. Nenhum compartilhamento. Não transmite nenhuma autoridade.</p>
         </div>
       </div>
     </div>
@@ -1011,10 +1052,10 @@
     <div class="container">
       <div class="turn-inner fade-in">
         <p class="turn-quote">
-          <span class="dim">O que separa conteúdo genérico</span><br />
-          <span class="dim">de conteúdo com identidade</span><br />
-          <span class="bright">não é talento nem ferramenta.</span><br />
-          <span class="gold">É o método.</span>
+          <span class="dim">O problema não é o design.</span><br />
+          <span class="dim">Não é o horário. Não é o algoritmo.</span><br />
+          <span class="bright">É que ninguém te ensinou</span><br />
+          <span class="gold">a criar com intenção.</span>
         </p>
       </div>
     </div>
@@ -1038,15 +1079,21 @@
             </span>
           </div>
           <h2 class="solution-title">
-            O Método —<br /><span class="gold">Content Akademy</span>
+            Carrossel com<br /><span class="gold">Intenção</span>
           </h2>
           <p class="solution-desc">
-            Um guia prático que vai destrinchar criação de conteúdo, com um método validado e usado em clientes reais, e te mostrar como usar esse método para transformar sua IA em um diretor criativo.
+            Um método prático para criar carrosséis que têm um propósito claro — e que as pessoas realmente terminam de ler.
+          </p>
+          <p class="solution-desc" style="margin-top:20px;">
+            Você vai aprender a definir a intenção antes de escrever a primeira palavra, estruturar cada slide para sustentar a atenção, e entender o que faz alguém salvar ou compartilhar seu conteúdo.
+          </p>
+          <p class="solution-desc" style="margin-top:20px;">
+            Funciona para qualquer nicho. Com ou sem IA. Para quem cria do zero ou para quem já posta e quer resultados melhores.
           </p>
         </div>
 
         <div class="solution-photo-col fade-in delay-2">
-          <div class="placeholder solution-photo">[FOTO DO DIRETOR CRIATIVO]</div>
+          <div class="placeholder solution-photo">Mockup do produto</div>
         </div>
 
       </div>
@@ -1069,25 +1116,37 @@
           <div class="check-wrap">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <p>Trabalha como social media e passa tentando não criar um conteúdo genérico.</p>
+          <p>É social media e quer parar de postar no achismo.</p>
         </div>
         <div class="forwhom-item fade-in delay-2">
           <div class="check-wrap">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <p>Tenta usar IA para otimizar e só recebe conteúdo genérico e fraco.</p>
+          <p>Cria conteúdo e quer carrosséis que as pessoas chegam até o fim.</p>
         </div>
         <div class="forwhom-item fade-in delay-3">
           <div class="check-wrap">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <p>Trabalha com redes sociais e sabe que seu conteúdo poderia ser muito melhor.</p>
+          <p>É profissional liberal e quer educar e converter no mesmo post.</p>
         </div>
         <div class="forwhom-item fade-in delay-4">
           <div class="check-wrap">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           </div>
-          <p>Quer cobrar mais pelos seus serviços mas ainda não confia no que entrega.</p>
+          <p>Já fez curso de design mas ainda não sabe o que dizer.</p>
+        </div>
+        <div class="forwhom-item fade-in delay-1">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>Usa IA mas não sabe estruturar o raciocínio antes de escrever o prompt.</p>
+        </div>
+        <div class="forwhom-item fade-in delay-2">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>Quer criar conteúdo com propósito real — não só para cumprir meta de postagem.</p>
         </div>
       </div>
     </div>
@@ -1112,9 +1171,9 @@
           <div class="module-number">01</div>
           <div>
             <div class="module-header">
-              <h3 class="module-title">Desmistificando criação de conteúdo</h3>
+              <h3 class="module-title">A Intenção</h3>
             </div>
-            <p class="module-desc">Entenda de uma vez por todas como conteúdo que funciona é construído e por que o seu ainda não chega lá.</p>
+            <p class="module-desc">O que você quer que a pessoa FAÇA depois de ler o carrossel? Sem responder isso, nenhum slide vai funcionar.</p>
           </div>
         </div>
 
@@ -1122,9 +1181,9 @@
           <div class="module-number">02</div>
           <div>
             <div class="module-header">
-              <h3 class="module-title">O Método</h3>
+              <h3 class="module-title">A Estrutura</h3>
             </div>
-            <p class="module-desc">Aprenda o processo criativo usado em clientes reais e saia com um sistema de criação que funciona toda vez.</p>
+            <p class="module-desc">Como montar um carrossel que sustenta a atenção do primeiro ao último slide — sem perder o leitor no meio do caminho.</p>
           </div>
         </div>
 
@@ -1132,23 +1191,19 @@
           <div class="module-number">03</div>
           <div>
             <div class="module-header">
-              <h3 class="module-title">IA como Diretor Criativo</h3>
+              <h3 class="module-title">O Gatilho do Compartilhamento</h3>
             </div>
-            <p class="module-desc">Pare de usar IA no achismo. Aprenda a aplicar o método e ter um diretor criativo sênior disponível a qualquer hora.</p>
+            <p class="module-desc">O que faz alguém salvar ou enviar para outra pessoa? Aprenda a construir esse momento de propósito.</p>
           </div>
         </div>
 
-        <div class="module-card module-card--bonus fade-in delay-4">
-          <div class="module-number" style="color:#c084fc">04</div>
+        <div class="module-card fade-in delay-4">
+          <div class="module-number">04</div>
           <div>
             <div class="module-header">
-              <h3 class="module-title">Propostas que Convertem</h3>
-              <span class="bonus-badge">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                Bônus
-              </span>
+              <h3 class="module-title">Aplicação</h3>
             </div>
-            <p class="module-desc">O template e a lógica por trás de propostas comerciais que fecham clientes.</p>
+            <p class="module-desc">Criando seu carrossel com intenção do zero — com e sem IA. Da ideia ao último slide, com o método na prática.</p>
           </div>
         </div>
 
@@ -1166,26 +1221,8 @@
         <span class="section-label fade-in">Resultados</span>
         <h2 class="section-title fade-in">O método na prática</h2>
       </div>
-
-      <div class="proof-grid">
-        <div class="proof-card fade-in delay-1">
-          <img src="provas/IMG_6248.PNG" alt="Depoimento @ferguxta" />
-        </div>
-        <div class="proof-card fade-in delay-2">
-          <img src="provas/IMG_6250.PNG" alt="Depoimento @raphaellareiis" />
-        </div>
-        <div class="proof-card fade-in delay-3">
-          <img src="provas/IMG_6254.PNG" alt="Depoimento @jenniferklayn" />
-        </div>
-        <div class="proof-card fade-in delay-1">
-          <img src="provas/IMG_6260.PNG" alt="Depoimento @patiliberato" />
-        </div>
-        <div class="proof-card fade-in delay-2">
-          <img src="provas/IMG_6262.PNG" alt="Depoimento @_jusouza" />
-        </div>
-        <div class="proof-card fade-in delay-3">
-          <img src="provas/IMG_6263.PNG" alt="Depoimento @jvarchanjo" />
-        </div>
+      <div class="proof-placeholder fade-in">
+        [Espaço para depoimentos — em breve]
       </div>
     </div>
   </section>
@@ -1206,40 +1243,79 @@
           <ul class="offer-list">
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Módulo 01 — Desmistificando criação de conteúdo
+              Módulo 01 — A Intenção
             </li>
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Módulo 02 — O Método
+              Módulo 02 — A Estrutura
             </li>
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Módulo 03 — IA como Diretor Criativo
+              Módulo 03 — O Gatilho do Compartilhamento
             </li>
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <span>Bônus — Propostas que Convertem</span>
-              <span class="item-value">valor R$97</span>
-            </li>
-            <li>
-              <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Acesso por 12 meses a todo o conteúdo
-            </li>
-            <li>
-              <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Acesso a todas as atualizações e novidades
+              Módulo 04 — Aplicação
             </li>
           </ul>
+
+          <!-- BÔNUS (ocultos — ainda não prontos)
+          <div class="offer-separator"></div>
+
+          <p class="bonus-section-label">Bônus inclusos</p>
+
+          <div class="bonus-list">
+            <div class="bonus-item">
+              <div class="bonus-icon">🎁</div>
+              <div>
+                <p class="bonus-title">Roteiro de Carrossel</p>
+                <p class="bonus-desc">Template editável para montar o raciocínio de qualquer carrossel antes de abrir o Canva.</p>
+                <div class="bonus-value"><s>R$47</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <div class="bonus-icon">🤖</div>
+              <div>
+                <p class="bonus-title">Prompts para IA</p>
+                <p class="bonus-desc">Biblioteca de prompts para usar IA com intenção — sem resultado genérico.</p>
+                <div class="bonus-value"><s>R$97</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <div class="bonus-icon">🎁</div>
+              <div>
+                <p class="bonus-title">Checklist "Esse carrossel está pronto?"</p>
+                <p class="bonus-desc">Revise cada carrossel antes de postar com os critérios certos.</p>
+                <div class="bonus-value"><s>R$27</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <div class="bonus-icon">🎁</div>
+              <div>
+                <p class="bonus-title">Aula Bônus — Carrossel de Autoridade</p>
+                <p class="bonus-desc">Como criar carrosséis que posicionam você como referência no seu nicho.</p>
+                <div class="bonus-value"><s>R$97</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+          </div>
+          -->
 
           <div class="offer-separator"></div>
 
           <div class="offer-price-block">
-            <div class="offer-price"><sup>R$</sup>297</div>
-            <p class="offer-price-sub">Uma única vez. Menos de R$1 por dia para ter um diretor criativo do seu lado.</p>
+            <!-- Valor total e De (ocultos enquanto bônus estão desativados)
+            <p class="price-total-label">Valor total: <s>R$365</s></p>
+            <div class="price-de-row">
+              <span class="price-de-label">De</span>
+              <span class="price-de">R$197</span>
+            </div>
+            -->
+            <div class="offer-price"><sup>R$</sup>97</div>
+            <p class="offer-price-sub">Uma única vez. Acesso imediato a todo o conteúdo.</p>
           </div>
 
           <a href="#" class="btn" style="width:100%; font-size:18px; padding:22px 44px;">
-            Quero aprender o método
+            Quero criar com intenção agora
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
 
@@ -1263,51 +1339,61 @@
 
         <div class="faq-item fade-in delay-1">
           <button class="faq-question" aria-expanded="false">
-            Preciso ter experiência com IA para aplicar o método?
+            Para quem é esse método?
             <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">Não. O método funciona independente do nível que você tem com IA. Você aprende a usar dentro do curso.</div>
+            <div class="faq-answer-inner">Para qualquer pessoa que cria carrosséis — social medias, criadores de conteúdo, profissionais liberais. Se você já postou um carrossel e não entendeu por que não funcionou, esse método é para você.</div>
           </div>
         </div>
 
         <div class="faq-item fade-in delay-2">
           <button class="faq-question" aria-expanded="false">
-            Funciona para qualquer nicho?
+            Preciso ter experiência com design?
             <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">Sim. O método é sobre processo criativo, não sobre nicho específico. Já foi aplicado em clientes de segmentos diferentes.</div>
+            <div class="faq-answer-inner">Não. O método é sobre estrutura e intenção — não sobre estética. Você pode aplicar no Canva, no Notion ou em qualquer ferramenta que já usa.</div>
           </div>
         </div>
 
         <div class="faq-item fade-in delay-3">
           <button class="faq-question" aria-expanded="false">
-            O acesso é por quanto tempo?
+            Funciona para qualquer nicho?
             <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">12 meses com acesso a todo o conteúdo e todas as atualizações do período.</div>
+            <div class="faq-answer-inner">Sim. O método ensina a lógica por trás de carrosséis que funcionam — e essa lógica serve para moda, saúde, finanças, gastronomia, negócios, qualquer área.</div>
           </div>
         </div>
 
         <div class="faq-item fade-in delay-4">
           <button class="faq-question" aria-expanded="false">
-            Como funciona a garantia?
+            Como vou acessar o conteúdo?
             <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">7 dias incondicional. Se não gostar por qualquer motivo, devolvemos 100% do seu dinheiro.</div>
+            <div class="faq-answer-inner">Imediatamente após a compra você recebe o acesso por e-mail. O conteúdo fica disponível para você consumir no seu ritmo.</div>
           </div>
         </div>
 
-        <div class="faq-item fade-in delay-4">
+        <div class="faq-item fade-in delay-1">
           <button class="faq-question" aria-expanded="false">
-            Para quem é esse método?
+            E se eu não gostar?
             <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">Para social medias, criadores de conteúdo e profissionais de comunicação que querem parar de criar no achismo e ter um processo que funciona toda vez.</div>
+            <div class="faq-answer-inner">7 dias incondicional. Se não gostar por qualquer motivo, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in delay-2">
+          <button class="faq-question" aria-expanded="false">
+            Já tenho um curso de conteúdo. Esse é diferente?
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Provavelmente sim. A maioria dos cursos ensina estética, ferramentas e frequência de postagem. Esse método ensina o raciocínio que vem antes disso tudo — a intenção por trás de cada carrossel.</div>
           </div>
         </div>
 
@@ -1344,16 +1430,16 @@
     <div class="container">
       <div class="final-cta-inner">
         <h2 class="final-cta-headline fade-in">
-          Chega de criar<br /><span class="gold">conteúdo genérico com IA.</span>
+          Chega de criar carrossel<br /><span class="gold">que some no feed.</span>
         </h2>
         <p class="final-cta-sub fade-in delay-1">
-          Aprenda o método que pode transformar a forma como cria conteúdo e escale isso com IA.
+          Aprenda a criar com intenção — e faça cada carrossel trabalhar por você.
         </p>
         <a href="#oferta" class="btn fade-in delay-2" style="font-size:18px; padding:22px 52px;">
-          Quero aprender o método
+          Quero criar com intenção agora
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <p class="final-cta-micro fade-in delay-3">Garantia de 7 dias &nbsp;·&nbsp; Sem risco.</p>
+        <p class="final-cta-micro fade-in delay-3">R$97 &nbsp;·&nbsp; Acesso imediato &nbsp;·&nbsp; Garantia de 7 dias</p>
       </div>
     </div>
   </section>
