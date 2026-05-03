@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carrossel com Intenção — Content Akademy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* === RESET & BASE === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary:      #0c0a07;
+      --bg-secondary:    #110f0b;
+      --bg-card:         #181410;
+      --bg-offer:        #080601;
+      --accent:          #F59E0B;
+      --accent-light:    #FCD34D;
+      --accent-hover:    #D97706;
+      --accent-dim:      rgba(245, 158, 11, 0.08);
+      --accent-glow:     rgba(245, 158, 11, 0.22);
+      --accent-glow-lg:  rgba(245, 158, 11, 0.12);
+      --text-primary:    #F5F0E8;
+      --text-secondary:  #8a7e6e;
+      --text-muted:      #524840;
+      --border:          rgba(245, 158, 11, 0.10);
+      --border-strong:   rgba(245, 158, 11, 0.25);
+      --border-subtle:   rgba(255, 255, 255, 0.06);
+      --radius:          14px;
+      --radius-lg:       22px;
+      --max-w:           1100px;
+      --section-py:      112px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* === LAYOUT === */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    .section-py { padding: var(--section-py) 0; }
+
+    /* === FADE-IN === */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1);
+    }
+    .fade-in.visible    { opacity: 1; transform: translateY(0); }
+    .fade-in.delay-1    { transition-delay: 0.10s; }
+    .fade-in.delay-2    { transition-delay: 0.20s; }
+    .fade-in.delay-3    { transition-delay: 0.30s; }
+    .fade-in.delay-4    { transition-delay: 0.40s; }
+
+    /* === PLACEHOLDER VISUAL === */
+    .placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px dashed rgba(245, 158, 11, 0.45);
+      background: rgba(245, 158, 11, 0.03);
+      color: rgba(245, 158, 11, 0.55);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
+    }
+
+    /* === BOTÃO === */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #1a0e00;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 20px 44px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      position: relative;
+    }
+    .btn::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px var(--accent-glow);
+    }
+    .btn:active { transform: translateY(0); }
+
+    /* === BADGE === */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-strong);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* linha divisória decorativa */
+    .divider-line {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+    }
+
+    /* =============================================
+       TOPBAR — URGÊNCIA DE LANÇAMENTO
+    ============================================= */
+    .topbar {
+      background: var(--accent);
+      color: #0c0a07;
+      padding: 11px 20px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .topbar strong { font-weight: 900; }
+
+    /* =============================================
+       SEÇÃO 1 — HERO
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-primary);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 20%, transparent 75%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(245,158,11,0.14) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 0 100px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-strong);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 100px;
+      margin-bottom: 36px;
+    }
+
+    .hero-headline {
+      font-size: clamp(38px, 6vw, 76px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      margin-bottom: 28px;
+    }
+
+    .hero-headline .line-plain  { display: block; color: var(--text-primary); }
+    .hero-headline .line-accent { display: block; color: var(--accent); }
+
+    .hero-subheadline {
+      font-size: clamp(17px, 2vw, 21px);
+      color: var(--text-secondary);
+      font-weight: 400;
+      line-height: 1.65;
+      max-width: 620px;
+      margin: 0 auto 52px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-trust {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* =============================================
+       SEÇÃO 2 — DOR
+    ============================================= */
+    .section-pain { background: var(--bg-secondary); }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.12;
+      margin-bottom: 64px;
+      text-align: center;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    .pain-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .pain-card:hover {
+      border-color: var(--border);
+      box-shadow: 0 0 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .pain-number {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .pain-card p {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: var(--text-primary);
+    }
+
+    /* =============================================
+       SEÇÃO 3 — VIRADA
+    ============================================= */
+    .section-turn {
+      background: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-turn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(245,158,11,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .section-turn::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent, rgba(245,158,11,0.25) 30%, rgba(245,158,11,0.25) 70%, transparent);
+      pointer-events: none;
+    }
+
+    .turn-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .turn-quote {
+      font-size: clamp(30px, 4.8vw, 58px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.035em;
+    }
+
+    .turn-quote .dim     { color: var(--text-secondary); }
+    .turn-quote .bright  { color: var(--text-primary); }
+    .turn-quote .gold    { color: var(--accent); }
+
+    /* =============================================
+       SEÇÃO 4 — SOLUÇÃO
+    ============================================= */
+    .section-solution { background: var(--bg-secondary); }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .solution-photo.placeholder {
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 3 / 4;
+      margin: 0 auto;
+      font-size: 12px;
+      border-radius: var(--radius-lg);
+    }
+
+    .solution-badge { margin-bottom: 24px; }
+
+    .solution-title {
+      font-size: clamp(34px, 4.5vw, 54px);
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 24px;
+    }
+
+    .solution-title .gold { color: var(--accent); }
+
+    .solution-desc {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    .solution-desc + .solution-desc { margin-top: 20px; }
+
+    /* =============================================
+       SEÇÃO 5 — PARA QUEM É
+    ============================================= */
+    .section-forwhom { background: var(--bg-primary); }
+
+    .forwhom-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .forwhom-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      padding: 26px 30px;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .forwhom-item:hover {
+      border-color: var(--border);
+      transform: translateX(6px);
+    }
+
+    .check-wrap {
+      flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1.5px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1px;
+    }
+
+    .check-wrap svg { color: var(--accent); }
+
+    .forwhom-item p {
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--text-primary);
+    }
+
+    /* =============================================
+       SEÇÃO 6 — MÓDULOS
+    ============================================= */
+    .section-modules { background: var(--bg-secondary); }
+
+    .modules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 36px;
+      align-items: start;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .module-card:hover {
+      border-color: var(--border);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.35);
+    }
+
+    .module-number {
+      font-size: clamp(48px, 5.5vw, 68px);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      color: var(--accent);
+      opacity: 0.9;
+      min-width: 72px;
+    }
+
+    .module-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .module-title {
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .module-desc {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* =============================================
+       SEÇÃO 7 — PROVA SOCIAL
+    ============================================= */
+    .section-proof { background: var(--bg-primary); }
+
+    .proof-placeholder {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 64px 40px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    /* =============================================
+       SEÇÃO 8 — OFERTA
+    ============================================= */
+    .section-offer {
+      background: var(--bg-offer);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-offer::before {
+      content: '';
+      position: absolute;
+      bottom: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(245,158,11,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .offer-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .offer-box {
+      background: linear-gradient(160deg, #1a1408 0%, #0e0c07 100%);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 52px 44px;
+      margin-top: 48px;
+      box-shadow: 0 0 80px rgba(245,158,11,0.08), inset 0 1px 0 rgba(245,158,11,0.12);
+    }
+
+    .offer-list {
+      list-style: none;
+      text-align: left;
+      margin-bottom: 0;
+    }
+
+    .offer-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .offer-list li:last-child { border-bottom: none; }
+
+    .offer-list .check-amber {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .offer-list .check-amber svg { color: var(--accent); }
+
+    .offer-separator {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+      margin: 36px 0;
+    }
+
+    /* Bônus */
+    .bonus-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .bonus-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bonus-item {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(245,158,11,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: left;
+    }
+
+    .bonus-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+      line-height: 1;
+      padding-top: 2px;
+    }
+
+    .bonus-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .bonus-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .bonus-value {
+      margin-top: 8px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bonus-value s { color: var(--text-muted); }
+
+    .bonus-included {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Bloco de preço */
+    .offer-price-block { text-align: center; margin-top: 40px; }
+
+    .price-total-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .price-was {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .price-de-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .price-de-label { font-size: 14px; color: var(--text-muted); }
+
+    .price-de {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      text-decoration: line-through;
+      font-weight: 600;
+    }
+
+    .offer-price {
+      font-size: clamp(72px, 12vw, 110px);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      color: var(--accent);
+      margin: 12px 0;
+    }
+
+    .offer-price sup {
+      font-size: 0.35em;
+      vertical-align: super;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .offer-price-sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-top: 16px;
+      margin-bottom: 44px;
+      line-height: 1.6;
+    }
+
+    /* =============================================
+       SEÇÃO 9 — FAQ
+    ============================================= */
+    .section-faq { background: var(--bg-secondary); }
+
+    .faq-list {
+      max-width: 740px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.25s ease;
+    }
+
+    .faq-item.open { border-color: var(--border-strong); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      text-align: left;
+      padding: 26px 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      transition: color 0.2s ease;
+    }
+
+    .faq-item.open .faq-question { color: var(--accent); }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      color: var(--accent);
+      transition: transform 0.32s cubic-bezier(.22,1,.36,1);
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.38s cubic-bezier(.22,1,.36,1);
+    }
+
+    .faq-answer-inner {
+      padding: 4px 30px 28px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* =============================================
+       SEÇÃO 10 — GARANTIA
+    ============================================= */
+    .section-warranty {
+      background: var(--bg-primary);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-warranty::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(245,158,11,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .warranty-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .warranty-badge-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .warranty-shield {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(245,158,11,0.04));
+      border: 1.5px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 40px rgba(245,158,11,0.12);
+    }
+
+    .warranty-title {
+      font-size: clamp(30px, 4vw, 42px);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .warranty-text {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* =============================================
+       SEÇÃO 11 — CTA FINAL
+    ============================================= */
+    .section-final-cta {
+      background: var(--bg-secondary);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .section-final-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+
+    .section-final-cta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(245,158,11,0.05) 0%, var(--bg-secondary) 70%);
+      pointer-events: none;
+    }
+
+    .final-cta-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .final-cta-headline {
+      font-size: clamp(34px, 5.5vw, 62px);
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.08;
+      margin-bottom: 20px;
+    }
+
+    .final-cta-headline .gold { color: var(--accent); }
+
+    .final-cta-sub {
+      font-size: clamp(17px, 2vw, 20px);
+      color: var(--text-secondary);
+      margin-bottom: 52px;
+      line-height: 1.65;
+    }
+
+    .final-cta-micro {
+      margin-top: 22px;
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* =============================================
+       RODAPÉ
+    ============================================= */
+    .footer {
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-subtle);
+      padding: 52px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* =============================================
+       RESPONSIVO — TABLET & DESKTOP
+    ============================================= */
+    @media (min-width: 768px) {
+      .pain-grid { grid-template-columns: repeat(3, 1fr); }
+
+      .solution-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 88px;
+      }
+      .solution-photo-col { order: 2; }
+      .solution-text-col  { order: 1; }
+    }
+
+    @media (max-width: 640px) {
+      .module-card {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .module-number { font-size: 40px; }
+      .offer-box { padding: 36px 24px; }
+      .bonus-item { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    🔥 LANÇAMENTO &nbsp;·&nbsp; DE <s style="opacity:.6">R$297</s> POR <strong>R$97</strong> POR TEMPO LIMITADO
+  </div>
+
+
+  <!-- =============================================
+       SEÇÃO 1 — HERO
+  ============================================= -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <div class="hero-inner">
+
+          <div class="hero-eyebrow fade-in">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Novo Método
+          </div>
+
+          <h1 class="hero-headline fade-in delay-1">
+            <span class="line-plain">Crie carrosséis com intenção</span>
+            <span class="line-plain">e eleve a autoridade da sua marca</span>
+            <span class="line-accent">a cada compartilhamento.</span>
+          </h1>
+
+          <p class="hero-subheadline fade-in delay-2">
+            Quando alguém compartilha o seu carrossel, sua marca chega em pessoas que nunca te viram sem você pagar nem um centavo por isso.
+          </p>
+
+          <div class="hero-cta-group fade-in delay-3">
+            <a href="#oferta" class="btn">
+              Quero criar com intenção
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <span class="hero-trust">Garantia de 7 dias &nbsp;·&nbsp; Acesso imediato &nbsp;·&nbsp; Qualquer nicho</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SEÇÃO 2 — DOR
+  ============================================= -->
+  <section class="section-pain section-py">
+    <div class="container">
+      <div style="text-align:center">
+        <span class="section-label fade-in">O problema</span>
+        <h2 class="section-title fade-in">Isso soa familiar?</h2>
+      </div>
+
+      <div class="pain-grid">
+        <div class="pain-card fade-in delay-1">
+          <p class="pain-number">01</p>
+          <p>Você investe horas criando. Posta e o carrossel some com 20 likes.</p>
+        </div>
+        <div class="pain-card fade-in delay-2">
+          <p class="pain-number">02</p>
+          <p>Você já copiou o formato de quem cresce. Não funcionou. E você ainda não entende por quê.</p>
+        </div>
+        <div class="pain-card fade-in delay-3">
+          <p class="pain-number">03</p>
+          <p>Nenhum save. Nenhum compartilhamento. Não transmite nenhuma autoridade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+
+  <!-- =============================================
+       SEÇÃO 3 — VIRADA
+  ============================================= -->
+  <section class="section-turn section-py">
+    <div class="container">
+      <div class="turn-inner fade-in">
+        <p class="turn-quote">
+          <span class="dim">O problema não é o design.</span><br />
+          <span class="dim">Não é o horário. Não é o algoritmo.</span><br />
+          <span class="bright">É que ninguém te ensinou</span><br />
+          <span class="gold">a criar com intenção.</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+
+  <!-- =============================================
+       SEÇÃO 4 — SOLUÇÃO
+  ============================================= -->
+  <section class="section-solution section-py">
+    <div class="container">
+      <div class="solution-grid">
+
+        <div class="solution-text-col fade-in">
+          <div class="solution-badge">
+            <span class="badge">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              Apresentando
+            </span>
+          </div>
+          <h2 class="solution-title">
+            Carrossel com<br /><span class="gold">Intenção</span>
+          </h2>
+          <p class="solution-desc">
+            Um método prático para criar carrosséis que têm um propósito claro — e que as pessoas realmente terminam de ler.
+          </p>
+          <p class="solution-desc" style="margin-top:20px;">
+            Você vai aprender a definir a intenção antes de escrever a primeira palavra, estruturar cada slide para sustentar a atenção, e entender o que faz alguém salvar ou compartilhar seu conteúdo.
+          </p>
+          <p class="solution-desc" style="margin-top:20px;">
+            Funciona para qualquer nicho. Com ou sem IA. Para quem cria do zero ou para quem já posta e quer resultados melhores.
+          </p>
+        </div>
+
+        <div class="solution-photo-col fade-in delay-2">
+          <div class="placeholder solution-photo">Mockup do produto</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SEÇÃO 5 — PARA QUEM É
+  ============================================= -->
+  <section class="section-forwhom section-py">
+    <div class="container">
+      <div style="text-align:center">
+        <span class="section-label fade-in">Para quem é</span>
+        <h2 class="section-title fade-in">Esse método é para você que...</h2>
+      </div>
+
+      <div class="forwhom-list">
+        <div class="forwhom-item fade-in delay-1">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>É social media e quer parar de postar no achismo.</p>
+        </div>
+        <div class="forwhom-item fade-in delay-2">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>Cria conteúdo e quer carrosséis que as pessoas chegam até o fim.</p>
+        </div>
+        <div class="forwhom-item fade-in delay-3">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>É profissional liberal e quer educar e converter no mesmo post.</p>
+        </div>
+        <div class="forwhom-item fade-in delay-4">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>Já fez curso de design mas ainda não sabe o que dizer.</p>
+        </div>
+        <div class="forwhom-item fade-in delay-1">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>Usa IA mas não sabe estruturar o raciocínio antes de escrever o prompt.</p>
+        </div>
+        <div class="forwhom-item fade-in delay-2">
+          <div class="check-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <p>Quer criar conteúdo com propósito real — não só para cumprir meta de postagem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-line"></div>
+
+
+  <!-- =============================================
+       SEÇÃO 6 — MÓDULOS
+  ============================================= -->
+  <section class="section-modules section-py">
+    <div class="container">
+      <div style="text-align:center">
+        <span class="section-label fade-in">Conteúdo</span>
+        <h2 class="section-title fade-in">O que você vai aprender</h2>
+      </div>
+
+      <div class="modules-list">
+
+        <div class="module-card fade-in delay-1">
+          <div class="module-number">01</div>
+          <div>
+            <div class="module-header">
+              <h3 class="module-title">A Intenção</h3>
+            </div>
+            <p class="module-desc">O que você quer que a pessoa FAÇA depois de ler o carrossel? Sem responder isso, nenhum slide vai funcionar.</p>
+          </div>
+        </div>
+
+        <div class="module-card fade-in delay-2">
+          <div class="module-number">02</div>
+          <div>
+            <div class="module-header">
+              <h3 class="module-title">A Estrutura</h3>
+            </div>
+            <p class="module-desc">Como montar um carrossel que sustenta a atenção do primeiro ao último slide — sem perder o leitor no meio do caminho.</p>
+          </div>
+        </div>
+
+        <div class="module-card fade-in delay-3">
+          <div class="module-number">03</div>
+          <div>
+            <div class="module-header">
+              <h3 class="module-title">O Gatilho do Compartilhamento</h3>
+            </div>
+            <p class="module-desc">O que faz alguém salvar ou enviar para outra pessoa? Aprenda a construir esse momento de propósito.</p>
+          </div>
+        </div>
+
+        <div class="module-card fade-in delay-4">
+          <div class="module-number">04</div>
+          <div>
+            <div class="module-header">
+              <h3 class="module-title">Aplicação</h3>
+            </div>
+            <p class="module-desc">Criando seu carrossel com intenção do zero — com e sem IA. Da ideia ao último slide, com o método na prática.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SEÇÃO 7 — PROVA SOCIAL
+  ============================================= -->
+  <section class="section-proof section-py">
+    <div class="container">
+      <div style="text-align:center">
+        <span class="section-label fade-in">Resultados</span>
+        <h2 class="section-title fade-in">O método na prática</h2>
+      </div>
+      <div class="proof-placeholder fade-in">
+        [Espaço para depoimentos — em breve]
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SEÇÃO 8 — OFERTA
+  ============================================= -->
+  <section class="section-offer section-py" id="oferta">
+    <div class="container">
+      <div class="offer-inner">
+
+        <span class="section-label fade-in">Investimento</span>
+        <h2 class="section-title fade-in">O que está incluso</h2>
+
+        <div class="offer-box fade-in delay-1">
+
+          <ul class="offer-list">
+            <li>
+              <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Módulo 01 — A Intenção
+            </li>
+            <li>
+              <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Módulo 02 — A Estrutura
+            </li>
+            <li>
+              <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Módulo 03 — O Gatilho do Compartilhamento
+            </li>
+            <li>
+              <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              Módulo 04 — Aplicação
+            </li>
+          </ul>
+
+          <!-- BÔNUS (ocultos — ainda não prontos)
+          <div class="offer-separator"></div>
+
+          <p class="bonus-section-label">Bônus inclusos</p>
+
+          <div class="bonus-list">
+            <div class="bonus-item">
+              <div class="bonus-icon">🎁</div>
+              <div>
+                <p class="bonus-title">Roteiro de Carrossel</p>
+                <p class="bonus-desc">Template editável para montar o raciocínio de qualquer carrossel antes de abrir o Canva.</p>
+                <div class="bonus-value"><s>R$47</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <div class="bonus-icon">🤖</div>
+              <div>
+                <p class="bonus-title">Prompts para IA</p>
+                <p class="bonus-desc">Biblioteca de prompts para usar IA com intenção — sem resultado genérico.</p>
+                <div class="bonus-value"><s>R$97</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <div class="bonus-icon">🎁</div>
+              <div>
+                <p class="bonus-title">Checklist "Esse carrossel está pronto?"</p>
+                <p class="bonus-desc">Revise cada carrossel antes de postar com os critérios certos.</p>
+                <div class="bonus-value"><s>R$27</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+            <div class="bonus-item">
+              <div class="bonus-icon">🎁</div>
+              <div>
+                <p class="bonus-title">Aula Bônus — Carrossel de Autoridade</p>
+                <p class="bonus-desc">Como criar carrosséis que posicionam você como referência no seu nicho.</p>
+                <div class="bonus-value"><s>R$97</s> <span class="bonus-included">Incluso</span></div>
+              </div>
+            </div>
+          </div>
+          -->
+
+          <div class="offer-separator"></div>
+
+          <div class="offer-price-block">
+            <!-- Valor total e De (ocultos enquanto bônus estão desativados)
+            <p class="price-total-label">Valor total: <s>R$365</s></p>
+            <div class="price-de-row">
+              <span class="price-de-label">De</span>
+              <span class="price-de">R$197</span>
+            </div>
+            -->
+            <div class="offer-price"><sup>R$</sup>97</div>
+            <p class="offer-price-sub">Uma única vez. Acesso imediato a todo o conteúdo.</p>
+          </div>
+
+          <a href="#" class="btn" style="width:100%; font-size:18px; padding:22px 44px;">
+            Quero criar com intenção agora
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SEÇÃO 9 — FAQ
+  ============================================= -->
+  <section class="section-faq section-py">
+    <div class="container">
+      <div style="text-align:center">
+        <span class="section-label fade-in">Dúvidas</span>
+        <h2 class="section-title fade-in">Perguntas frequentes</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item fade-in delay-1">
+          <button class="faq-question" aria-expanded="false">
+            Para quem é esse método?
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Para qualquer pessoa que cria carrosséis — social medias, criadores de conteúdo, profissionais liberais. Se você já postou um carrossel e não entendeu por que não funcionou, esse método é para você.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in delay-2">
+          <button class="faq-question" aria-expanded="false">
+            Preciso ter experiência com design?
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Não. O método é sobre estrutura e intenção — não sobre estética. Você pode aplicar no Canva, no Notion ou em qualquer ferramenta que já usa.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in delay-3">
+          <button class="faq-question" aria-expanded="false">
+            Funciona para qualquer nicho?
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Sim. O método ensina a lógica por trás de carrosséis que funcionam — e essa lógica serve para moda, saúde, finanças, gastronomia, negócios, qualquer área.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in delay-4">
+          <button class="faq-question" aria-expanded="false">
+            Como vou acessar o conteúdo?
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Imediatamente após a compra você recebe o acesso por e-mail. O conteúdo fica disponível para você consumir no seu ritmo.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in delay-1">
+          <button class="faq-question" aria-expanded="false">
+            E se eu não gostar?
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">7 dias incondicional. Se não gostar por qualquer motivo, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.</div>
+          </div>
+        </div>
+
+        <div class="faq-item fade-in delay-2">
+          <button class="faq-question" aria-expanded="false">
+            Já tenho um curso de conteúdo. Esse é diferente?
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Provavelmente sim. A maioria dos cursos ensina estética, ferramentas e frequência de postagem. Esse método ensina o raciocínio que vem antes disso tudo — a intenção por trás de cada carrossel.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SEÇÃO 10 — GARANTIA
+  ============================================= -->
+  <section class="section-warranty section-py">
+    <div class="container">
+      <div class="warranty-inner fade-in">
+        <div class="warranty-badge-wrap">
+          <div class="warranty-shield">
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent)">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10" stroke-width="2.2"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="warranty-title">Garantia de 7 dias</h2>
+        <p class="warranty-text">Se em 7 dias você sentir que o método não é para você, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SEÇÃO 11 — CTA FINAL
+  ============================================= -->
+  <section class="section-final-cta section-py">
+    <div class="container">
+      <div class="final-cta-inner">
+        <h2 class="final-cta-headline fade-in">
+          Chega de criar carrossel<br /><span class="gold">que some no feed.</span>
+        </h2>
+        <p class="final-cta-sub fade-in delay-1">
+          Aprenda a criar com intenção — e faça cada carrossel trabalhar por você.
+        </p>
+        <a href="#oferta" class="btn fade-in delay-2" style="font-size:18px; padding:22px 52px;">
+          Quero criar com intenção agora
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <p class="final-cta-micro fade-in delay-3">R$97 &nbsp;·&nbsp; Acesso imediato &nbsp;·&nbsp; Garantia de 7 dias</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       RODAPÉ
+  ============================================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <p class="footer-copy">Content Akademy &copy; 2026</p>
+        <div class="footer-links">
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- =============================================
+       JAVASCRIPT — Fade-in & Accordion FAQ
+  ============================================= -->
+  <script>
+    /* --- IntersectionObserver: fade-in --- */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visible');
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+    /* --- Accordion FAQ --- */
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      item.querySelector('.faq-question').addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        document.querySelectorAll('.faq-item').forEach((other) => {
+          other.classList.remove('open');
+          other.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          other.querySelector('.faq-answer').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          item.querySelector('.faq-question').setAttribute('aria-expanded', 'true');
+          const ans = item.querySelector('.faq-answer');
+          ans.style.maxHeight = ans.scrollHeight + 'px';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
