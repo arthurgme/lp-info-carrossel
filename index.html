@@ -1651,6 +1651,19 @@
     document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
     /* --- Accordion FAQ --- */
+    /* --- Scroll centralizado para #oferta --- */
+    document.querySelectorAll('a[href="#oferta"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const box = document.querySelector('.offer-box');
+        if (!box) return;
+        const rect = box.getBoundingClientRect();
+        const boxTop = window.pageYOffset + rect.top;
+        const offset = Math.max(0, (window.innerHeight - rect.height) / 2);
+        window.scrollTo({ top: boxTop - offset, behavior: 'smooth' });
+      });
+    });
+
     /* --- Meta Pixel: InitiateCheckout --- */
     document.querySelectorAll('.btn--offer').forEach((btn) => {
       btn.addEventListener('click', () => {
