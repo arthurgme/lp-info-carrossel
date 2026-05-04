@@ -1094,14 +1094,95 @@
       }
     }
 
-    /* === OFFER SECTION — mais destaque === */
+    /* === OFFER SECTION — mais destaque + compacta === */
     .section-offer {
       border-top: 1px solid var(--border);
+      padding: 52px 0;
     }
+
+    .section-offer .section-title { margin-bottom: 28px; }
 
     .offer-box {
       border-color: rgba(245,158,11,0.35) !important;
       box-shadow: 0 0 100px rgba(245,158,11,0.10), inset 0 1px 0 rgba(245,158,11,0.16) !important;
+      padding: 32px 28px;
+      margin-top: 20px;
+    }
+
+    .offer-list li { padding: 10px 0; }
+
+    .offer-separator { margin: 18px 0; }
+
+    .offer-price-block { margin-top: 0; }
+
+    .offer-price {
+      font-size: clamp(56px, 10vw, 80px);
+      margin: 6px 0;
+    }
+
+    .offer-price-sub {
+      margin-top: 6px;
+      margin-bottom: 14px;
+      font-size: 14px;
+    }
+
+    .offer-launch-badge { margin-bottom: 6px; }
+
+    .price-de-row { margin-bottom: 0; }
+
+    .offer-guarantee-mini {
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+
+    .offer-urgency { margin-top: 10px; }
+
+    /* Módulo com benefício */
+    .offer-item-body { display: flex; flex-direction: column; gap: 3px; }
+    .offer-item-title { font-size: 16px; font-weight: 600; color: var(--text-primary); }
+    .offer-item-sub { font-size: 13px; color: var(--text-secondary); line-height: 1.45; }
+
+    /* Badge de lançamento */
+    .offer-launch-badge {
+      display: inline-block;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-strong);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+
+    /* Mini garantia dentro do box */
+    .offer-guarantee-mini {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: rgba(245,158,11,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .offer-guarantee-mini svg { flex-shrink: 0; color: var(--accent); }
+
+    /* Urgência abaixo do botão */
+    .offer-urgency {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      letter-spacing: 0.01em;
     }
 
     /* === BOTÃO OFERTA — pulso === */
@@ -1409,34 +1490,44 @@
       <div class="offer-inner">
 
         <span class="section-label fade-in">Investimento</span>
-        <h2 class="section-title fade-in">O que está incluso</h2>
+        <h2 class="section-title fade-in">Tudo o que você recebe hoje</h2>
 
         <div class="offer-box fade-in delay-1">
 
           <ul class="offer-list">
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Módulo 01 — A Intenção
+              <div class="offer-item-body">
+                <span class="offer-item-title">Módulo 01 — A Intenção</span>
+                <span class="offer-item-sub">Defina o propósito antes de escrever o primeiro slide</span>
+              </div>
             </li>
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Módulo 02 — A Estrutura
+              <div class="offer-item-body">
+                <span class="offer-item-title">Módulo 02 — A Estrutura</span>
+                <span class="offer-item-sub">Monte carrosséis que sustentam a atenção até o fim</span>
+              </div>
             </li>
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Módulo 03 — O Gatilho do Compartilhamento
+              <div class="offer-item-body">
+                <span class="offer-item-title">Módulo 03 — O Gatilho do Compartilhamento</span>
+                <span class="offer-item-sub">Entenda o que faz alguém salvar e enviar para outra pessoa</span>
+              </div>
             </li>
             <li>
               <div class="check-amber"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-              Módulo 04 — Aplicação
+              <div class="offer-item-body">
+                <span class="offer-item-title">Módulo 04 — Aplicação</span>
+                <span class="offer-item-sub">Crie seu carrossel do zero com o método, com ou sem IA</span>
+              </div>
             </li>
           </ul>
 
           <!-- BÔNUS (ocultos — ainda não prontos)
           <div class="offer-separator"></div>
-
           <p class="bonus-section-label">Bônus inclusos</p>
-
           <div class="bonus-list">
             <div class="bonus-item">
               <div class="bonus-icon">🎁</div>
@@ -1476,18 +1567,26 @@
           <div class="offer-separator"></div>
 
           <div class="offer-price-block">
+            <span class="offer-launch-badge">Preço de lançamento</span>
             <div class="price-de-row">
               <span class="price-de-label">De</span>
               <span class="price-de">R$297</span>
             </div>
             <div class="offer-price"><sup>R$</sup>97</div>
-            <p class="offer-price-sub">Uma única vez. Acesso imediato a todo o conteúdo.</p>
+            <p class="offer-price-sub">Pagamento único. Acesso imediato.</p>
+          </div>
+
+          <div class="offer-guarantee-mini">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10" stroke-width="2.2"/></svg>
+            <span>Garantia de 7 dias — se não gostar, devolvemos 100% do seu dinheiro.</span>
           </div>
 
           <a href="https://pay.kiwify.com.br/b8vAEki" class="btn btn--offer" style="width:100%;" target="_blank" rel="noopener">
-            Quero criar com intenção agora
+            Garantir meu acesso!
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
+
+          <p class="offer-urgency">⚡ Preço de lançamento — sobe em breve</p>
 
         </div>
       </div>
