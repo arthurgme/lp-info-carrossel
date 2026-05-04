@@ -4,6 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carrossel com Intenção — Content Akademy</title>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '836988822193012');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=836988822193012&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -160,7 +178,7 @@
     ============================================= */
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: calc(100vh - 44px);
       display: flex;
       flex-direction: column;
       background: var(--bg-primary);
@@ -197,7 +215,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 80px 0 100px;
+      padding: 48px 0 64px;
       position: relative;
       z-index: 2;
     }
@@ -967,6 +985,132 @@
       .offer-box { padding: 36px 24px; }
       .bonus-item { flex-direction: column; gap: 10px; }
     }
+
+    /* === TOPBAR — pill de preço === */
+    .topbar-price {
+      display: inline-block;
+      background: #0c0a07;
+      color: var(--accent);
+      font-size: 15px;
+      font-weight: 900;
+      padding: 1px 11px;
+      border-radius: 100px;
+      letter-spacing: 0;
+    }
+
+    /* === HERO GRID — 2 colunas no desktop === */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+    }
+
+    @media (min-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr 1fr; text-align: left; }
+      .hero-grid .hero-inner { max-width: none; }
+      .hero-grid .hero-subheadline { margin-left: 0; margin-right: 0; }
+      .hero-grid .hero-cta-group { align-items: flex-start; }
+      .hero-grid .hero-headline { font-size: clamp(32px, 3.8vw, 54px); }
+    }
+
+    /* === HERO VISUAL — slides decorativos === */
+    .hero-visual { display: none; }
+
+    .hero-slide {
+      position: absolute;
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 28px 28px;
+      width: 260px;
+    }
+
+    .hero-slide-num {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 0.9;
+      color: var(--accent);
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .hero-slide-line {
+      height: 9px;
+      background: rgba(245,158,11,0.10);
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+    .hero-slide-line.short   { width: 68%; }
+    .hero-slide-line.shorter { width: 42%; }
+
+    .hero-slide-tag {
+      display: block;
+      margin-top: 20px;
+      height: 28px;
+      width: 96px;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+    }
+
+    @media (min-width: 900px) {
+      .hero-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        height: 400px;
+        overflow: visible;
+      }
+
+      .hero-slide {
+        border: 1px solid var(--border-strong);
+      }
+
+      .hero-slide-1 {
+        z-index: 3;
+        transform: rotate(-3deg);
+        box-shadow: 0 24px 64px rgba(0,0,0,0.55), 0 0 0 1px var(--border);
+      }
+
+      .hero-slide-2 {
+        z-index: 2;
+        transform: rotate(4deg) translate(28px, 18px);
+        opacity: 0.60;
+      }
+
+      .hero-slide-3 {
+        z-index: 1;
+        transform: rotate(9deg) translate(54px, 36px);
+        opacity: 0.30;
+      }
+    }
+
+    /* === OFFER SECTION — mais destaque === */
+    .section-offer {
+      border-top: 1px solid var(--border);
+    }
+
+    .offer-box {
+      border-color: rgba(245,158,11,0.35) !important;
+      box-shadow: 0 0 100px rgba(245,158,11,0.10), inset 0 1px 0 rgba(245,158,11,0.16) !important;
+    }
+
+    /* === BOTÃO OFERTA — pulso === */
+    @keyframes pulse-offer {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0); }
+      50%       { box-shadow: 0 0 0 16px rgba(245,158,11,0.09); }
+    }
+
+    .btn--offer {
+      font-size: 19px !important;
+      padding: 26px 44px !important;
+      animation: pulse-offer 2.8s ease-in-out infinite;
+    }
+
+    .btn--offer:hover { animation: none; }
   </style>
 </head>
 
@@ -974,7 +1118,7 @@
 
   <!-- TOPBAR -->
   <div class="topbar">
-    🔥 LANÇAMENTO &nbsp;·&nbsp; DE <s style="opacity:.6">R$297</s> POR <strong>R$97</strong> POR TEMPO LIMITADO
+    🔥 LANÇAMENTO &nbsp;·&nbsp; DE <s style="opacity:.55">R$297</s> POR <span class="topbar-price">R$97</span> POR TEMPO LIMITADO
   </div>
 
 
@@ -984,29 +1128,52 @@
   <section class="hero">
     <div class="hero-body">
       <div class="container">
-        <div class="hero-inner">
+        <div class="hero-grid">
 
-          <div class="hero-eyebrow fade-in">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            Novo Método
+          <div class="hero-inner">
+            <div class="hero-eyebrow fade-in">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Novo Método
+            </div>
+
+            <h1 class="hero-headline fade-in delay-1">
+              <span class="line-plain">Crie carrosséis com intenção</span>
+              <span class="line-plain">e eleve a autoridade da sua marca</span>
+              <span class="line-accent">a cada compartilhamento.</span>
+            </h1>
+
+            <p class="hero-subheadline fade-in delay-2">
+              Quando alguém compartilha o seu carrossel, sua marca chega em pessoas que nunca te viram sem você pagar nem um centavo por isso.
+            </p>
+
+            <div class="hero-cta-group fade-in delay-3">
+              <a href="#oferta" class="btn">
+                Quero criar com intenção
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <span class="hero-trust">Garantia de 7 dias &nbsp;·&nbsp; Acesso imediato &nbsp;·&nbsp; Qualquer nicho</span>
+            </div>
           </div>
 
-          <h1 class="hero-headline fade-in delay-1">
-            <span class="line-plain">Crie carrosséis com intenção</span>
-            <span class="line-plain">e eleve a autoridade da sua marca</span>
-            <span class="line-accent">a cada compartilhamento.</span>
-          </h1>
-
-          <p class="hero-subheadline fade-in delay-2">
-            Quando alguém compartilha o seu carrossel, sua marca chega em pessoas que nunca te viram sem você pagar nem um centavo por isso.
-          </p>
-
-          <div class="hero-cta-group fade-in delay-3">
-            <a href="#oferta" class="btn">
-              Quero criar com intenção
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-            <span class="hero-trust">Garantia de 7 dias &nbsp;·&nbsp; Acesso imediato &nbsp;·&nbsp; Qualquer nicho</span>
+          <div class="hero-visual fade-in delay-2">
+            <div class="hero-slide hero-slide-3">
+              <div class="hero-slide-num">03</div>
+              <div class="hero-slide-line"></div>
+              <div class="hero-slide-line short"></div>
+              <div class="hero-slide-line shorter"></div>
+            </div>
+            <div class="hero-slide hero-slide-2">
+              <div class="hero-slide-num">02</div>
+              <div class="hero-slide-line"></div>
+              <div class="hero-slide-line short"></div>
+              <div class="hero-slide-line shorter"></div>
+            </div>
+            <div class="hero-slide hero-slide-1">
+              <div class="hero-slide-num">01</div>
+              <div class="hero-slide-line"></div>
+              <div class="hero-slide-line short"></div>
+              <div class="hero-slide-tag"></div>
+            </div>
           </div>
 
         </div>
@@ -1303,18 +1470,15 @@
           <div class="offer-separator"></div>
 
           <div class="offer-price-block">
-            <!-- Valor total e De (ocultos enquanto bônus estão desativados)
-            <p class="price-total-label">Valor total: <s>R$365</s></p>
             <div class="price-de-row">
               <span class="price-de-label">De</span>
-              <span class="price-de">R$197</span>
+              <span class="price-de">R$297</span>
             </div>
-            -->
             <div class="offer-price"><sup>R$</sup>97</div>
             <p class="offer-price-sub">Uma única vez. Acesso imediato a todo o conteúdo.</p>
           </div>
 
-          <a href="#" class="btn" style="width:100%; font-size:18px; padding:22px 44px;">
+          <a href="#" class="btn btn--offer" style="width:100%;">
             Quero criar com intenção agora
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
