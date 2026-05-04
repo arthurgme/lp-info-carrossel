@@ -16,6 +16,12 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '836988822193012');
   fbq('track', 'PageView');
+  fbq('track', 'ViewContent', {
+    content_name: 'Carrossel com Intenção',
+    content_category: 'Curso Digital',
+    value: 97.00,
+    currency: 'BRL'
+  });
   </script>
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=836988822193012&ev=PageView&noscript=1"
@@ -1645,6 +1651,18 @@
     document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
 
     /* --- Accordion FAQ --- */
+    /* --- Meta Pixel: InitiateCheckout --- */
+    document.querySelectorAll('.btn--offer').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        fbq('track', 'InitiateCheckout', {
+          content_name: 'Carrossel com Intenção',
+          value: 97.00,
+          currency: 'BRL',
+          num_items: 1
+        });
+      });
+    });
+
     document.querySelectorAll('.faq-item').forEach((item) => {
       item.querySelector('.faq-question').addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
